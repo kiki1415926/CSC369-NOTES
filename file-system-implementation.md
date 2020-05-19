@@ -89,5 +89,13 @@ the file /foo/bar is created, and three blocks are written to it:
 
 **40.7 Caching and Buffering**
 
-\*\*\*\*
+dynamic partitioning
+
+Now imagine the file open example with caching. The first open may generate a lot of I/O traffic to read in directory inode and data, but subsequent file opens of that same file \(or files in the same directory\) will mostly hit in the cache and thus no I/O is needed.
+
+write buffering \(as it is sometimes called\) certainly has a number of per- formance benefits. First, by delaying writes, the file system can batch some updates into a smaller set of I/Os; for example, if an inode bitmap is updated when one file is created and then updated moments later as another file is created, the file system saves an I/O by delaying the write after the first update. Second, by buffering a number of writes in memory, the system can then schedule the subsequent I/Os and thus increase per- formance. Finally, some writes are avoided altogether by delaying them; for example, if an application creates a file and then deletes it, delaying the writes to reflect the file creation to disk avoids them entirely.
+
+
+
+
 
