@@ -37,5 +37,11 @@ The protocol has four steps.
 
 缺点：polling seems inefficient; specifically, it wastes a great deal of CPU time just waiting for the \(potentially slow\) device to complete its activity, instead of switching to another ready process and thus better utilizing the CPU.
 
+**36.4 Lowering CPU Overhead With Interrupts**
+
+**interrupt**: Instead of polling the device repeatedly, the OS can issue a request, put the calling process to sleep, and context switch to another task. When the device is finally finished with the operation, it will raise a hardware interrupt, causing the CPU to jump into the OS at a predetermined **interrupt service routine \(ISR\)** or more simply an **interrupt handler**.
+
+Although interrupts allow for overlap of computation and I/O, they only really make sense for slow devices. Otherwise, the cost of interrupt han- dling and context switching may outweigh the benefits interrupts pro- vide.
+
 
 
