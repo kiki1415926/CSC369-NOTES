@@ -2,11 +2,11 @@
 
 **36.1 System Architecture**
 
-![](.gitbook/assets/image%20%2819%29.png)
+![](.gitbook/assets/image%20%2822%29.png)
 
 **36.2 A Canonical Device**
 
-![](.gitbook/assets/image%20%2820%29.png)
+![](.gitbook/assets/image%20%2823%29.png)
 
 hardware interface: Just like a piece of software, hardware must also present some kind of interface that allows the system software to control its operation.
 
@@ -16,7 +16,7 @@ internal structure**:** responsible for implement- ing the abstraction the devic
 
 the \(simplified\) device interface is comprised of three registers: a status register, which can be read to see the current sta- tus of the device; a command register, to tell the device to perform a cer- tain task; and a data register to pass data to the device, or get data from the device.
 
-![](.gitbook/assets/image%20%2821%29.png)
+![](.gitbook/assets/image%20%2824%29.png)
 
 ```text
 While (STATUS == BUSY)
@@ -48,6 +48,31 @@ Another reason not to use interrupts arises in networks \[MR96\]. When a huge st
 Another interrupt-based optimization is **coalescing**. In such a setup, a device which needs to raise an interrupt first waits for a bit before delivering the interrupt to the CPU. While waiting, other requests may soon complete, and thus multiple interrupts can be coalesced into a single in- terrupt delivery, thus lowering the overhead of interrupt processing.
 
 **36.5 More Efficient Data Movement With DMA**
+
+Direct Memory Access \(DMA\)
+
+before:
+
+![](.gitbook/assets/image%20%2820%29.png)
+
+after:
+
+![](.gitbook/assets/image%20%2818%29.png)
+
+ **36.6 Methods Of Device Interaction**
+
+1. **I/O instructions：** These instructions specify a way for the OS to send data to specific device registers and thus allow the construction of the protocols. Such instructions are usually **privileged**. The OS controls devices, and the OS thus is the only entity allowed to directly communicate with them.
+2. **memory-mapped I/O**: the hardware makes device registers available as if they were memory locations. To access a particular register, the OS issues a load \(to read\) or store \(to write\) the address; the hardware then routes the load/store to the device instead of main memory.
+
+**36.7 Fitting Into The OS: The Device Driver**
+
+\*\*\*\*
+
+
+
+
+
+
 
 \*\*\*\*
 
