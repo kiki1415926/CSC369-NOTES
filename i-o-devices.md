@@ -41,7 +41,13 @@ The protocol has four steps.
 
 **interrupt**: Instead of polling the device repeatedly, the OS can issue a request, put the calling process to sleep, and context switch to another task. When the device is finally finished with the operation, it will raise a hardware interrupt, causing the CPU to jump into the OS at a predetermined **interrupt service routine \(ISR\)** or more simply an **interrupt handler**.
 
-Although interrupts allow for overlap of computation and I/O, they only really make sense for slow devices. Otherwise, the cost of interrupt han- dling and context switching may outweigh the benefits interrupts pro- vide.
+Although interrupts allow for **overlap** of computation and I/O, they only really make sense for slow devices. Otherwise, the cost of interrupt handling and context switching may outweigh the benefits interrupts pro- vide.
 
+Another reason not to use interrupts arises in networks \[MR96\]. When a huge stream of incoming packets each generate an interrupt, it is possible for the OS to **livelock**, that is, find itself only processing interrupts and never allowing a user-level process to run and actually service the requests.
 
+Another interrupt-based optimization is **coalescing**. In such a setup, a device which needs to raise an interrupt first waits for a bit before delivering the interrupt to the CPU. While waiting, other requests may soon complete, and thus multiple interrupts can be coalesced into a single in- terrupt delivery, thus lowering the overhead of interrupt processing.
+
+**36.5 More Efficient Data Movement With DMA**
+
+\*\*\*\*
 
